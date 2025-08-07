@@ -1,0 +1,20 @@
+.listing {
+  background: var(--accent-color);
+  border-radius: 30px;
+  padding-bottom: 30px;
+}
+.results {
+  display: grid;
+  column-gap: 1px;
+  row-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 400px));
+  margin-top: 50px;
+  justify-content: space-around;
+}
+
+
+
+a h5:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}

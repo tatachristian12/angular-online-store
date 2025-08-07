@@ -1,0 +1,19 @@
+<article class="mt-5 container" *ngIf="products">
+    <img [src]="products.images" class="listing-photo">
+    <section class="listing-description">
+       <h2 class="listing-heading">{{products.title}}</h2> 
+       <p class="listing-location">{{'R' + products.price}}</p>
+       <p class="listing-location">Category: {{products.category.name}}</p>
+    </section>
+     <section class="listing-features">
+       <h2 class="section-heading">About this product</h2> 
+       <ul>
+        <li>{{products.slug}}</li>
+        <li>{{products.description}}</li>
+       </ul>
+    </section>
+    <section>
+        <button class="btn btn-primary" type="button">Add to Cart</button> 
+        <button class="btn btn-success ms-2" type="button" routerLink="/home">Back to home</button> 
+    </section>
+</article>

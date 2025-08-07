@@ -1,0 +1,20 @@
+<h1 class="text-center">Add a new product</h1>
+<div class="mx-5">
+<div class="mb-3">
+  <label class="form-label">Title</label>
+  <input type="text" [(ngModel)]="productObject.title"  class="form-control"  placeholder="">
+</div>
+<div class="mb-3">
+  <label  class="form-label">Price</label>
+  <input type="text" [(ngModel)]="productObject.price"  class="form-control"  placeholder="">
+</div>
+<div class="mb-3">
+  <label class="form-label">Description</label>
+  <input type="text" [(ngModel)]="productObject.description"  class="form-control"  placeholder="">
+</div>
+<!-- <div class="mb-3">
+  <label for="formFile" class="form-label">Image</label>
+  <input [(ngModel)]="productObject.image"  class="form-control" type="file" id="formFile">
+</div> -->
+<button class="btn btn-success" (click)="onSave()">Save Product</button>
+</div>

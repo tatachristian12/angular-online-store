@@ -1,0 +1,69 @@
+<div class="form">
+<h1 class="text-center">Add a new product</h1>
+<form #actorForm="ngForm" (ngSubmit)="onSave()">
+<div class="d-flex justify-content-center">
+<div class="mb-3">
+  <label class="form-label">Title</label>
+  <input type="text" name="title" #title="ngModel"  [(ngModel)]="productObject.title"  class="form-control"  placeholder="" required>
+</div>
+<div class="mb-3">
+  <label  class="form-label">Price</label>
+  <input type="text" name="price" #price="ngModel" [(ngModel)]="productObject.price"  class="form-control"  placeholder="" required>
+</div>
+<div class="mb-3">
+  <label class="form-label">Description</label>
+  <input type="text" name="description" #description="ngModel" [(ngModel)]="productObject.description"  class="form-control"  placeholder="" required>
+
+</div>
+<div class="mb-3">
+  <label class="form-label">Category</label>
+  <select class="form-select" name="categoryId" #categoryId="ngModel" [(ngModel)]="productObject.categoryId" required>
+  <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+</select>
+</div>
+
+<div class="mb-3">
+  <label for="formFile" class="form-label">Image</label>
+  <input type="text" name="images" #images="ngModel" [(ngModel)]="productObject.images[0]" class="form-control" required>
+  
+</div>
+<button class="btn btn-success mt-4" style="height: 40px;">
+  {{ isEditing ? 'Update Product' : 'Create Product' }}
+</button>
+
+</div>
+</form>
+</div>
+
+<h2 class="text-center">Product List</h2>
+<nav class="navbar">
+  <div class="container-fluid d-flex justify-content-center">
+    
+      <input
+  class="form-control me-2 w-25"
+  type="search"
+  placeholder="Search"
+  aria-label="Search"
+  [(ngModel)]="searchTerm"
+  
+  name="searchTerm"
+/>
+<button class="btn btn-outline-success" type="button" (click)="searchProducts()">Search</button>
+    
+  </div>
+</nav>
+<!-- <button class="btn btn-success ms-4" routerLink="/addproduct">Add new product</button> -->
+<section class="listing results">
+<div class="container" *ngFor="let product of filteredProducts">
+<div class="card" style="width: 20rem; height: 30rem;">
+  <img *ngIf="product.images?.length" [src]="product.images[0]" class="card-img-top" alt="Product Image">
+  <div class="card-body">
+   <a (click)="goToDetails(product.id)"> <h5 class="card-title text-primary">{{product.title}}</h5></a>
+    <p class="card-text">{{ product.price + "R"}}</p>
+    <a href="#" class="btn btn-primary">Add to card</a>
+     <a href="#" class="btn btn-danger ms-2" (click)="onDeleteProduct(product.id)">Delete</a>
+     <a href="#" class="btn btn-danger ms-2" (click)="onEdit(product)">Edit</a>
+  </div>
+</div>
+</div>
+</section>
