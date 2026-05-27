@@ -1,5 +1,5 @@
 # OnlineStore
-Built using ANGULAR
+Built using ANGULAR.
 Consuming an api of products,
 Performing the different crude operations
 
