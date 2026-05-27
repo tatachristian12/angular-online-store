@@ -1,6 +1,6 @@
 # OnlineStore
 Built using ANGULAR
-consuming an api of products,
+Consuming an api of products,
 performing the different crude operations
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
