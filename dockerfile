@@ -1,18 +1,16 @@
-# Step 1: Use an official Node runtime as a parent image
 FROM node:20-alpine
 
-# Step 2: Set the working directory inside the container
 WORKDIR /app
 
-# Step 3: Copy the compiled Jenkins build files into the container
-# (Adjust 'online-store' if your dist folder uses a different name)
+# Copy the build output distribution folder
 COPY dist/online-store /app
 
-# Step 4: Install a lightweight static file server to run the app
-RUN npm install -g pm2
-
-# Step 5: Expose the port the app runs on
+# Expose the default Angular SSR port
 EXPOSE 4000
 
-# Step 6: Command to run the Angular SSR/server application
-CMD ["pm2-runtime", "server/server.mjs"]
+# Force the environment variables directly at system level
+ENV HOST=0.0.0.0
+ENV PORT=4000
+
+# Execute using native node instead of pm2-runtime
+CMD ["node", "server/server.mjs"]
