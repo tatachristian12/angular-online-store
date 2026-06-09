@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: angular-store-deployment
+  labels:
+    app: angular-store
+spec:
+  replicas: 2 # Spins up 2 parallel containers for high availability
+  selector:
+    matchLabels:
+      app: angular-store
+  template:
+    metadata:
+      labels:
+        app: angular-store
+    spec:
+      containers:
+      - name: angular-store-container
+        image: tatachristian12/angular-store:latest
+        imagePullPolicy: Always # Forces K8s to pull the fresh image if you rebuild it
+        ports:
+        - containerPort: 4000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: angular-store-service
+spec:
+  type: NodePort # Exposes the service outside the cluster
+  selector:
+    app: angular-store
+  ports:
+    - port: 4000       # The port inside the cluster
+      targetPort: 4000 # The port the container is listening on
+      nodePort: 32000  # The exact port you will open in your browser

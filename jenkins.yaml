@@ -1,0 +1,67 @@
+jenkins:
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "${JENKINS_ADMIN_PASSWORD}"
+          description: "Primary DevOps Admin"
+
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - usernamePassword:
+              scope: GLOBAL
+              id: "github-credentials-id"
+              username: "tatachristian12"
+              password: "${GITHUB_PAT}"
+              description: "GitHub Personal Access Token for Webhooks"
+
+jobs:
+  - script: >
+      pipelineJob('angular-online-store-pipeline') {
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url('https://github.com/tatachristian12/angular-online-store.git')
+                  credentials('github-credentials-id')
+                }
+                branches('*/main')
+              }
+            }
+            lightweight(true)
+          }
+        }
+        triggers {
+          scm('H/2 * * * *')
+        }
+      }
+      pipeline {
+        agent any
+        
+        stages {
+            stage('Install Dependencies') {
+                steps {
+                    // This is your external shell execution block!
+                    sh 'npm install'
+                }
+            }
+            stage('Build Angular App') {
+                steps {
+                    sh 'npm run build'
+                }
+            }
+            stage('Build Docker Image') {
+                steps {
+                    sh 'docker build -t tatachristian12/angular-online-store:latest .'
+                }
+            }
+        }
+    }
